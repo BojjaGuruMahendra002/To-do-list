@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple To-Do List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #117f97;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 400px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #newtask {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      flex: 1;
+      border: 1px solid black;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: rgb(135, 155, 222);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #tasks .task {
+      background-color: #f2f2f2;
+      padding: 10px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+    }
+
+    .delete {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: #ff4d4d;
+      font-size: 18px;
+    }
+
+    .delete:hover {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="newtask">
+      <input type="text" placeholder="Task to be done" />
+      <button id="push">Add</button>
+    </div>
+    <div id="tasks"></div>
+  </div>
+
+  <script>
+    document.getElementById("push").onclick = function () {
+      let task = document.querySelector("input[type='text']").value.trim();
+      if (task.length === 0) {
+        alert("Please enter a task");
+      } else {
+        let tasksContainer = document.getElementById("tasks");
+
+        let taskElement = document.createElement("div");
+        taskElement.classList.add("task");
+        taskElement.innerHTML = `
+          <span id="taskname">${task}</span>
+          <button class="delete"><i class="fa-solid fa-trash"></i></button>
+        `;
+
+        tasksContainer.appendChild(taskElement);
+
+        document.querySelector("input[type='text']").value = "";
+
+        taskElement.querySelector(".delete").onclick = function () {
+          taskElement.remove();
+        };
+      }
+    };
+  </script>
+
+</body>
+</html>
